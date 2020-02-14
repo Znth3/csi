@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('breadcrumb')
     {!! cui_breadcrumb([
-        'Home' => url('/home'),
+        'Home' => url('home'),
         'Attendance' => url('admin/attendance'),
         'Index' => '#'
     ]) !!}
@@ -10,8 +10,14 @@
 
 
 @section('toolbar')
-    <strong><i class="fa fa-list"></i> List Kehadiran</strong>
-    {!! cui_toolbar_btn(route('admin.attendance.create'), 'icon-plus', 'Tambah Pertemuan') !!}
+{{--     {!! cui_toolbar_btn('','fa fa-edit', 'Edit Pertemuan') !!}--}}
+    <a href="" class="btn" data-toggle="modal" data-target="#exampleModalCenter">
+        <i class="icon-plus"></i> &nbsp;Tambah Pertemuan
+    </a>
+
+    <a href="" class="btn" data-toggle="modal" data-target="#exampleModal">
+        <i class="fa fa-edit"></i> &nbsp;Edit Pertemuan
+    </a>
 @endsection
 
 
@@ -46,7 +52,7 @@
                 {{-- CARD HEADER--}}
                 <div class="card-header">
                     <i class="fa fa-edit"></i> <strong>Daftar Mahasiswa</strong>
-                        {!! cui_toolbar_btn(route('admin.attendance.create'), 'icon-plus col col-md-1 justify-content-end', 'Tambah Pertemuan') !!}
+{{--                        {!! cui_toolbar_btn(route('admin.attendance.create'), 'icon-plus col col-md-1 justify-content-end', 'Tambah Pertemuan') !!}--}}
 
                 </div>
 
@@ -55,33 +61,12 @@
                         <div class="col-md-12 justify-content-end">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <div class="row">
+                                        <a class="buttonancak btn-primary" href="{{ route('kehadiran', ['id' => Request::segment(3), 'jenis' => 'print']) }}"><i class="fa fa-print"></i></a>
+                                        @include('backend.attendance.tabel')
+                                    </div>
                                     {{-- ayam --}}
-                                    <table class="table table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th class="text-center">Nama Mahasiswa</th>
-                                            <th class="text-center">NIM</th>
-                                            @foreach($kolom as $att)
-                                                <th class="text-center">{{$att}}</th>
-                                            @endforeach
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach ($ayam as $a)
-                                            <tr>
-                                                <td class="text-center">{{$a['name']}}</td>
-                                                <td class="text-center">{{$a['nim']}}</td>
-                                                @foreach ($a['desc'] as $key => $item)
-                                                    @foreach ($a['desc'] as $i)
-                                                        @if ($kolom[$key] == $i['date'])
-                                                            <td class="text-center">{{config('central.attendance_student')[$item['status']]}}</td>
-                                                        @endif
-                                                    @endforeach
-                                                @endforeach
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+
                                 </div>
                             </div>
                         </div>
@@ -100,10 +85,48 @@
                                 </div>
                             </div>
                         </div>
-
                     </div><!--card-body-->
-
-
                 </div><!--card-->
+
+    <div class="col-md-6">
+        <div class="form-group">
+        <!-- Modal Edit-->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Daftar Pertemuan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Tanggal</th>
+                                    <th scope="col">Edit</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @php $a = 1; @endphp
+                                @foreach($attendance as $att)
+                                    <tr>
+                                        <th scope="row">{{$a}}</th>
+                                        <td>{{$att->date}}</td>
+                                        <td>{!! cui_btn_edit(url('/attendance/edit/'. $att->id."/detail")) !!}</td>
+                                    </tr>
+                                    @php $a++; @endphp
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 
 @endsection

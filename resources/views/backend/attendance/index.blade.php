@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('breadcrumb')
     {!! cui_breadcrumb([
@@ -10,7 +10,7 @@
 
 @section('toolbar')
 {{--    {!! cui_toolbar_btn(route('admin.lecturers.create'), 'icon-plus', 'Tambah Dosen') !!}--}}
-@endsection
+
 
 @section('content')
     <div class="row justify-content-center">
@@ -19,43 +19,38 @@
 
                 {{-- CARD HEADER--}}
                 <div class="card-header">
-                    <strong><i class="fa fa-list"></i> List Kelas</strong>
-                    {!! Form::open(['method' => 'GET', 'url' => '/admin/attendance', 'class' => 'navbar-form navbar-right', 'role' => 'search'])  !!}
-                    <div class="form-row align-items-center">
-                        <div class="col-auto">
-                            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                            <select name="semester" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                @foreach($term as $sems)
-                                    <option value="{{$sems->id}}">{{$sems->year}} @if($sems->period == 1)Ganjil @else Genap @endif</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-auto my-1">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </div>
-                    </div>
-                    {!! Form::close() !!}
+                    <i class="fa fa-list"></i>
+                    @if($termTitle[0]->period == 1)Ganjil @else Genap @endif
+                    {{" ".$termTitle[0]->year}}
                 </div>
 
                 {{-- CARD BODY--}}
                 <div class="card-body">
-
                     <div class="row justify-content-end">
-                        <div class="col-md-6 text-right">
-                            <form method="post" action="{{ route('admin.searchAttendance.show') }}" class="form-inline">
-                                {{ csrf_field() }}
-                                <input type="text" name="keyword" class="form-control" value="@if(isset($keyword)) {{ $keyword }} @endif" placeholder="Masukkan Keyword" />
-                                <input type="submit" name="submit" class="btn btn-primary" value="Cari" />
-                            </form>
-                        </div>
-                        <div class="col-md-6 justify-content-end">
+                        <div class="col-md-6 justify-content-end mt-n2 mr-3">
                             <div class="row justify-content-end">
                                 {{-- {{ $data->links() }} --}}
+                                {!! Form::open(['method' => 'GET', 'url' => '/admin/attendance', 'class' => '', 'role' => 'search'])  !!}
+                                <div class="form-row align-items-center">
+                                    <div class="col-auto">
+{{--                                        <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>--}}
+                                        <select name="semester" class="custom-select mr-sm-3" id="inlineFormCustomSelect">
+                                            @foreach($term as $sems)
+                                                <option value="{{$sems->id}}">{{$sems->year}} @if($sems->period == 1)Ganjil @else Genap @endif</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="col-auto my-1 ">
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                    </div>
+                                </div>
+                                {!! Form::close() !!}
                             </div>
                         </div>
                     </div>
 
-                    <table class="table table-striped">
+                    <table class="table table-striped mt-1">
                         <thead>
                         <tr>
                             <th class="text-center">Kelas</th>
@@ -73,7 +68,7 @@
                                 <td class="text-center">{{ $classLecturer->nama }}</td>
 
                                 <td class="text-center">
-                                    {!! cui_btn_view(route('admin.attendance.show', [$classLecturer->id])) !!}
+                                    {!! cui_btn_view(url('admin/attendance/'.$classLecturer->id.'/show')) !!}
                                 </td>
                             </tr>
                         @endforeach

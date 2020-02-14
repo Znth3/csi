@@ -96,5 +96,21 @@
 @yield('javascript')
 
 </body>
-
+<style>
+    .buttonancak{
+        align-items: center;
+        border-radius: 500px;
+        bottom: 16px;
+        cursor: pointer;
+        display: flex;
+        height: 64px;
+        justify-content: center;
+        min-width: 64px;
+        position: fixed;
+        right: 16px;
+        width: fit-content;
+        color: white;
+        font-size: 32px;
+    }
+</style>
 </html>
