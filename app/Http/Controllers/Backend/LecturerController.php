@@ -13,7 +13,7 @@ class LecturerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:manage_lecturers']);
+//        $this->middleware(['permission:manage_lecturers']);
     }
 
     public function index()

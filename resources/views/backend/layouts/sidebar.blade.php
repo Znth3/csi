@@ -26,17 +26,23 @@
                             <i class="nav-icon"></i> Mahasiswa
                         </a>
                     </li>
-
                     {{-- Menu Tendik --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.staffs.index') }}">
                             <i class="nav-icon"></i> Tendik
                         </a>
                     </li>
+                </ul>
+            </li>
+            {{-- Menu Tugas Akhir --}}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.theses.index') }}">
+                    <i class="nav-icon"></i> Tugas Akhir
+                </a>
+            </li>
 
                 </ul>
             </li>
-
 
             <li class="nav-item nav-dropdown">
                 <a class="nav-link nav-dropdown-toggle" href="#">
@@ -53,7 +59,10 @@
                 </ul>
             </li>
 
-
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url('/thesis_seminar') }}">
+                    <i class="nav-icon fas fa-laptop"></i> Pengelolaan Semhas</a>
+            </li>
         </ul>
     </nav>
 

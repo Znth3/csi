@@ -57,7 +57,7 @@ class StudentController extends Controller
             'department_id',
             'address',
             'marital_status'));
-        
+
         if($request->hasFile('photo')){
             $fileExt = $request->photo->extension();
             $fileName = uniqid("photo").".".$fileExt;

@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->integer('year')->nullable();
             $table->unsignedBigInteger('department_id')->nullable();
             $table->integer('gender')->nullable();
-            $table->date('birthdate')->nullable();
+            $table->date('birthday')->nullable();
             $table->string('birthplace')->nullable();
             $table->text('address')->nullable();
             $table->bigInteger('marital_status')->nullable();

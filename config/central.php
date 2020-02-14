@@ -8,6 +8,7 @@ return [
         'lecturer_photo' => 'public/photo/lecturer',
         'student_photo' => 'public/photo/student',
         'ijazah' => 'public/ijazah',
+        'thesis_logbook_file_progress' => 'public/logbook/thesis'
     ],
 
    'family_relationship' => [
@@ -84,5 +85,16 @@ return [
         2 => 'Absen',
         3 => 'Izin',
         4 => 'Sakit'
+
+    'thesis_supervisor_position' => [
+        1 => 'Pembimbing Tunggal',
+        2 => 'Pembimbing Utama',
+        3 => 'Pembimbing Pendamping'
+    ],
+
+    'thesis_supervisor_status' => [
+        0 => 'Submitted',
+        1 => 'Accepted',
+        2 => 'Rejected'
     ]
 ];
