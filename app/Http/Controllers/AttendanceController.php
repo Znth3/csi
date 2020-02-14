@@ -13,7 +13,26 @@ class AttendanceController extends Controller
         return view('backend.attendance.create');
     }
 
-    public function update(){
+    public function edit($id){
+        $attendance_students = DB::table('attendance_students')
+            ->join('attendances','attendance_id','=','attendances.id')
+            ->join('course_selections','attendance_students.course_selection_id','=','course_selections.id')
+            ->join('classrooms','course_selections.classroom_id','=','classrooms.id')
+            ->join('courses','classrooms.course_id','=','courses.id')
+            ->join('student_semesters','course_selections.student_semester_id','=','student_semesters.id')
+            ->join('students','student_id','=','students.id')
+            ->select('attendances.id AS att_id','attendance_students.id','students.nim','students.name','attendance_students.status','attendances.date','courses.code',
+                'courses.name AS crs_name','courses.credit','attendances.start_at','attendances.end_at','courses.id AS crs_id')
+            ->where([
+                ['attendances.id','=', $id]
+            ])
+            ->get();
+
+        return view('backend.attendance.edit', compact('attendance_students'));
+    }
+
+
+    public function update(Request $request, $id){
         DB::table('attendance_students')
             ->where('id', '=', $request->id)
             ->update(['status' => $request->status]);
@@ -106,7 +125,7 @@ class AttendanceController extends Controller
         // dd($attendance_students[0]);
 
         // return redirect(route('presensi', ['id' => $id]));
-        return redirect('attendance/student/'.$attendance_students[0]->id."/detail");
+        return redirect('admin/attendance/student/'.$attendance_students[0]->id."/detail");
     }
 
 
@@ -149,7 +168,12 @@ class AttendanceController extends Controller
             ->where([['semesters.id','=' ,$semester]])
             ->get();
 
-        return view('backend/attendance/index', compact('data', 'term', 'termTitle'));
+        if($data == null){
+            return 0;
+        }else{
+            return view('backend/attendance/index', compact('data', 'term', 'termTitle'));
+
+        }
     }
 
     public function show($id, $jenis=null)
@@ -161,7 +185,7 @@ class AttendanceController extends Controller
             ->join('classrooms','class_lecturers.classroom_id','=','classrooms.id')
             ->join('courses','classrooms.course_id','=','courses.id')
             ->where([['class_lecturers.id','=', $id]])
-            ->select('attendances.*','courses.name AS crs_name','courses.code','courses.semester','lecturers.name AS lecname')
+            ->select('attendances.*','courses.name AS crs_name','courses.code','courses.semester','lecturers.name AS lecname', 'classrooms.name as className')
             ->get();
 
 
@@ -209,10 +233,11 @@ class AttendanceController extends Controller
                         }
                     }
                 }
-                array_push($ayam,$ikan);
+                array_push($ayam, $ikan);
+
             }
         }
-//        dd($attendance);
+//        dd($kolom);
         if($jenis == 'print'){
             return view('backend.attendance.tabel', compact('ayam', 'kolom', 'attendance', 'attendance_students'));
         } else{

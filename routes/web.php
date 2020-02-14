@@ -24,7 +24,7 @@ Route::middleware(['auth'])->group( function(){
 //    Route::get('admin/attendance/show/{attendance}', 'AttendanceController@show')->name('admin.attendance.show');
     Route::get('admin/attendance/{id}/{jenis}', 'AttendanceController@show')->name('kehadiran');
     Route::patch('admin/attendance/student', 'AttendanceController@store');
-    Route::get('admin/attendance/student/{id}/detail', 'AttendanceController@showStudent');
+    Route::get('admin/attendance/student/{id}/detail', 'AttendanceController@showStudent')->name('add_attendance');
     Route::get('admin/attendance/edit/{id}/detail', 'AttendanceController@edit')->name('detailabsen');
     Route::patch('admin/attendance/edit/{id}', 'AttendanceController@update')->name('editabsen');
 });

@@ -79,7 +79,7 @@ return [
     ],
 
     'attendance_student' => [
-        0 => 'Belum Absen',
+        0 => 'Absen',
         1 => 'Hadir',
         2 => 'Absen',
         3 => 'Izin',

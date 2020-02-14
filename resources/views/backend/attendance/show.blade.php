@@ -38,9 +38,7 @@
                     <div class="row justify-content-end">
                         <div class="col-md-12 justify-content-end">
                             <div class="row">
-                                <div class="col-md-6">
-                                    @include('backend.attendance._detail')
-                                </div>
+                                @include('backend.attendance._detail')
                             </div>
                         </div>
                     </div>
@@ -115,7 +113,7 @@
                                     <tr>
                                         <th scope="row">{{$a}}</th>
                                         <td>{{$att->date}}</td>
-                                        <td>{!! cui_btn_edit(url('/attendance/edit/'. $att->id."/detail")) !!}</td>
+                                        <td>{!! cui_btn_edit(url('admin/attendance/edit/'. $att->id."/detail")) !!}</td>
                                     </tr>
                                     @php $a++; @endphp
                                 @endforeach
@@ -126,7 +124,33 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <!-- Button trigger modal -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Tambah Pertemuan</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {!! Form::open(['method' => 'PATCH','url' => 'admin/attendance/student',
+                                            'class' => 'form-horizontal', 'files' => true]) !!}
+                            {{ Form::hidden('class_lecturer_id', $attendance[0]->id) }}
+                            @include ('backend.attendance.create')
+
+                            {!! Form::close() !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 @endsection

@@ -3,14 +3,14 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => url('/'),
-        'Attendance' => url('/attendance'),
+        'Attendance' => url('admin/attendance'),
         'Index' => '#'
     ]) !!}
 @endsection
 
 
 @section('toolbar')
-    <strong><i class="fa fa-list"></i> List Absensi tanggal {{$attendance_students[0]->date}}</strong>
+{{--    <strong><i class="fa fa-list"></i> List Absensi tanggal {{$attendance_students[0]->date}}</strong>--}}
     {{-- {!! cui_toolbar_btn(route('students.create'), 'icon-plus', 'Tambah Mahasiswa') !!} --}}
 @endsection
 

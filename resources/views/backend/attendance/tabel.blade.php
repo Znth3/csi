@@ -44,18 +44,21 @@
             <tr>
                 <td class="table-with-outline tt">{{$a['name']}}</td>
                 <td class="table-with-outline text-center">{{$a['nim']}}</td>
-                <?php
-                //                         dd($a);
-                ?>
-                @foreach ($a['desc'] as $key => $item)
-                    @foreach ($a['desc'] as $i)
 
-                        @if ($kolom[$key]['id'] == $i['id'])
+                @foreach ($a['desc'] as $key => $item)
+
+                    @foreach ($a['desc'] as $i)
+                        <?php
+//                                                                                     dd($kolom[$key]['tgl']);
+
+                        ?>
+
+                    @if ($kolom[$key]['tgl'] == $i['date'])
                             @if(Request::segment(4) == 'print')
                                 <td class="table-with-outline text-center">{{config('central.attendance_student')[$item['status']]}}</td>
                             @else
                                 <td class="text-center">
-                                    {{--                                    {{ $item['status'] == 1 ? 1 : <i class='fa fa-check'></i>  }}--}}
+{{--                                                                        {{ $item['status'] == 1 ? 1 : <i class='fa fa-check'></i>  }}--}}
                                     @if($item['status'] == 1)
                                         <i class='fa fa-check'></i>
                                     @elseif($item['status'] == 2)

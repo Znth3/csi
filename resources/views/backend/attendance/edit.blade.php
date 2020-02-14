@@ -3,7 +3,7 @@
 @section('breadcrumb')
     {!! cui_breadcrumb([
         'Home' => url('/'),
-        'Attendance' => url('/attendance'),
+        'Attendance' => url('admin/attendance'),
         'Index' => '#'
     ]) !!}
 @endsection
